@@ -45,7 +45,7 @@ function getOptionsFromGithubActionInput() {
 exports.getOptionsFromGithubActionInput = getOptionsFromGithubActionInput;
 function setGithubActionOutputFromResults({ packageNames }) {
     core_1.debug(`Packages in this workspace: ${packageNames.join(', ')}`);
-    core_1.setOutput('package-names', packageNames);
+    core_1.setOutput('package_names', packageNames);
     if (!packageNames.length) {
         core_1.warning('No packages found in this workspace');
     }

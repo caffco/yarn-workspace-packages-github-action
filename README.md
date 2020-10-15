@@ -29,7 +29,7 @@ jobs:
     steps:
         - name: Print packages
         needs: get-workspace-packages
-        run: echo ${{ needs.get-workspace-packages.outputs.package-names }}
+        run: echo ${{ needs.get-workspace-packages.outputs.package_names }}
 ```
 
 [yarnworkspacesurl]: https://classic.yarnpkg.com/en/docs/workspaces/

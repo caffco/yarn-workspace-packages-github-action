@@ -14,7 +14,7 @@ export function setGithubActionOutputFromResults({
   packageNames: string[]
 }): void {
   debug(`Packages in this workspace: ${packageNames.join(', ')}`)
-  setOutput('package-names', packageNames)
+  setOutput('package_names', packageNames)
 
   if (!packageNames.length) {
     warning('No packages found in this workspace')
