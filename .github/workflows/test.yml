@@ -1,0 +1,26 @@
+name: 'build-test'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  build: # make sure build/ci work properly
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          yarn --frozen-lockfile
+      - run: |
+          yarn all
+  test: # make sure the action works on a clean machine without building
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Ensure main exists
+        if: ${{ !endsWith( github.ref, '/main' ) }}
+        run: git fetch origin main:main
+      - uses: ./

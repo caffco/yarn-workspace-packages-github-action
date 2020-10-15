@@ -1,0 +1,17 @@
+name: 'Get Yarn Workspace Packages'
+description: 'Returns packages in a Yarn workspace'
+author: 'Caff'
+branding:
+  icon: package
+  color: blue
+inputs:
+  repository_path:
+    required: true
+    description: 'Relative or absolute path to the repository. Defaults to working directory.'
+    default: '.'
+outputs:
+  package_names:
+    description: 'List of package names in the workspace'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
