@@ -121,17 +121,21 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-const path_1 = __webpack_require__(622);
+const path_1 = __importDefault(__webpack_require__(622));
 const fs_1 = __webpack_require__(78);
 const github_1 = __webpack_require__(928);
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         const options = github_1.getOptionsFromGithubActionInput();
-        const rootPackage = (yield fs_1.readJsonFile(__webpack_require__.ab + "yarn-workspace-packages-github-action/" + options.repositoryRootPath + '/package.json'));
+        const resolveFunction = 'resolve';
+        const rootPackage = (yield fs_1.readJsonFile(path_1.default[resolveFunction](options.repositoryRootPath, 'package.json')));
         const packageFolderRelativePaths = rootPackage.workspaces.packages;
         const packageNames = yield Promise.all(packageFolderRelativePaths.map((relativePath) => __awaiter(this, void 0, void 0, function* () {
-            const packageJsonAbsolutePath = __webpack_require__.ab + "yarn-workspace-packages-github-action/" + options.repositoryRootPath + '/' + relativePath + '/package.json';
+            const packageJsonAbsolutePath = path_1.default[resolveFunction](options.repositoryRootPath, relativePath, 'package.json');
             const packageJson = (yield fs_1.readJsonFile(packageJsonAbsolutePath));
             return packageJson.name;
         })));
