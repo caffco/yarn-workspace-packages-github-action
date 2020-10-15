@@ -24,6 +24,10 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+      - name: Run local dist
+        uses: ./
+        with:
+          repository_path: ${{github.workspace}}
       - name: Install dependencies
         run: yarn --frozen-lockfile
       - name: Run tests
