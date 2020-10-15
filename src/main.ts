@@ -9,7 +9,7 @@ export default async function main(): Promise<void> {
   const options = getOptionsFromGithubActionInput()
 
   const rootPackage = (await readJsonFile(
-    resolvePath(options.repositoryRootPath, './package.json')
+    resolvePath(options.repositoryRootPath, 'package.json')
   )) as {
     workspaces: {packages: string[]}
   }
@@ -21,7 +21,7 @@ export default async function main(): Promise<void> {
       const packageJsonAbsolutePath = resolvePath(
         options.repositoryRootPath,
         relativePath,
-        './package.json'
+        'package.json'
       )
       const packageJson = (await readJsonFile(packageJsonAbsolutePath)) as {
         name: string
