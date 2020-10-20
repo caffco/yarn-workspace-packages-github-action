@@ -1,4 +1,4 @@
-# @caff/changed-packages-github-action
+# @caff/yarn-workspace-packages-github-action
 
 ## 0.0.1
 
