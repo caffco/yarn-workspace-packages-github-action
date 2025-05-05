@@ -32,7 +32,7 @@
     }
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.2",
+    "@changesets/cli": "^2.29.3",
     "@types/jest": "^27.5.0",
     "@types/node": "^18.11.9",
     "@typescript-eslint/parser": "^6.21.0",
