@@ -1,5 +1,4 @@
-[![Maintainability](https://api.codeclimate.com/v1/badges/d9d35eccf8ed20d25347/maintainability)](https://codeclimate.com/github/caffco/yarn-workspace-packages-github-action/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/d9d35eccf8ed20d25347/test_coverage)](https://codeclimate.com/github/caffco/yarn-workspace-packages-github-action/test_coverage)
+[![codecov](https://codecov.io/gh/caffco/yarn-workspace-packages-github-action/graph/badge.svg?token=SMAK5AYGD4)](https://codecov.io/gh/caffco/yarn-workspace-packages-github-action)
 
 # Yarn Workspace Packages
 
