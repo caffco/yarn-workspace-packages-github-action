@@ -7,7 +7,6 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
       exclude: [
-        'lib/', // TypeScript build output
         'dist/' // Build artifacts
       ]
     }
