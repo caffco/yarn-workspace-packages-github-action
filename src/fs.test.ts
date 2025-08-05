@@ -1,19 +1,22 @@
-import * as fs from 'fs'
-import {readJsonFile} from './fs'
+import fs from 'node:fs'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import { readJsonFile } from './fs'
 
-jest.mock('fs')
+vi.mock('fs', () => ({
+  default: {
+    readFile: vi.fn(),
+  },
+}))
 
 describe('fs', () => {
   beforeEach(() => {
-    jest
-      .spyOn(fs, 'readFile')
-      .mockImplementation((filePath, callback) =>
-        callback(null, Buffer.from(JSON.stringify({'my-key': 'my-value'})))
-      )
+    vi.mocked(fs.readFile).mockImplementation((_filePath, callback) =>
+      callback(null, Buffer.from(JSON.stringify({ 'my-key': 'my-value' })))
+    )
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   describe('#readJsonFile', () => {
@@ -25,16 +28,14 @@ describe('fs', () => {
 
     it('should return parsed content', async () => {
       await expect(readJsonFile('my-file')).resolves.toEqual({
-        'my-key': 'my-value'
+        'my-key': 'my-value',
       })
     })
 
     it('should reject on error', async () => {
-      jest
-        .spyOn(fs, 'readFile')
-        .mockImplementation((filePath, callback) =>
-          callback(new Error('Forced error'), Buffer.from(''))
-        )
+      vi.mocked(fs.readFile).mockImplementation((_filePath, callback) =>
+        callback(new Error('Forced error'), Buffer.from(''))
+      )
 
       await expect(readJsonFile('my-file')).rejects.toThrowError('Forced error')
     })

@@ -1,3 +1,4 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import * as fs from './fs'
 import * as github from './github'
 
@@ -5,34 +6,33 @@ import main from './main'
 
 describe('Main', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   describe('#default', () => {
     const fakeInput = {
-      repositoryRootPath: '/fake-root'
+      repositoryRootPath: '/fake-root',
     }
 
     beforeEach(() => {
-      jest
-        .spyOn(github, 'getOptionsFromGithubActionInput')
-        .mockReturnValue(fakeInput)
-      jest
-        .spyOn(github, 'setGithubActionOutputFromResults')
-        .mockImplementation(() => {})
+      vi.spyOn(github, 'getOptionsFromGithubActionInput').mockReturnValue(
+        fakeInput
+      )
+      vi.spyOn(github, 'setGithubActionOutputFromResults').mockImplementation(
+        () => {}
+      )
 
-      jest
-        .spyOn(fs, 'readJsonFile')
+      vi.spyOn(fs, 'readJsonFile')
         .mockResolvedValueOnce({
           workspaces: {
-            packages: ['packages/package-a', 'packages/package-b']
-          }
+            packages: ['packages/package-a', 'packages/package-b'],
+          },
         })
         .mockResolvedValueOnce({
-          name: 'package-a'
+          name: 'package-a',
         })
         .mockResolvedValueOnce({
-          name: 'package-b'
+          name: 'package-b',
         })
     })
 
@@ -57,7 +57,7 @@ describe('Main', () => {
       await expect(main()).resolves.toBeUndefined()
 
       expect(github.setGithubActionOutputFromResults).toHaveBeenCalledWith({
-        packageNames: ['package-a', 'package-b']
+        packageNames: ['package-a', 'package-b'],
       })
     })
   })

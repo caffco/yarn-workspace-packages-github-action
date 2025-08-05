@@ -1,8 +1,8 @@
-import path from 'path'
-import {readJsonFile} from './fs'
+import path from 'node:path'
+import { readJsonFile } from './fs'
 import {
   getOptionsFromGithubActionInput,
-  setGithubActionOutputFromResults
+  setGithubActionOutputFromResults,
 } from './github'
 
 export default async function main(): Promise<void> {
@@ -12,13 +12,13 @@ export default async function main(): Promise<void> {
   const rootPackage = (await readJsonFile(
     path[resolveFunction](options.repositoryRootPath, 'package.json')
   )) as {
-    workspaces: {packages: string[]}
+    workspaces: { packages: string[] }
   }
 
   const packageFolderRelativePaths = rootPackage.workspaces.packages
 
   const packageNames = await Promise.all(
-    packageFolderRelativePaths.map(async relativePath => {
+    packageFolderRelativePaths.map(async (relativePath) => {
       const packageJsonAbsolutePath = path[resolveFunction](
         options.repositoryRootPath,
         relativePath,
@@ -32,6 +32,6 @@ export default async function main(): Promise<void> {
   )
 
   setGithubActionOutputFromResults({
-    packageNames
+    packageNames,
   })
 }
