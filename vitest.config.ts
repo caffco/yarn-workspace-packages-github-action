@@ -1,4 +1,4 @@
-import {defineConfig} from 'vitest/config'
+import { defineConfig } from 'vitest/config'
 
 export default defineConfig({
   test: {
@@ -7,8 +7,8 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'html'],
       exclude: [
-        'dist/' // Build artifacts
-      ]
-    }
-  }
+        'dist/', // Build artifacts
+      ],
+    },
+  },
 })

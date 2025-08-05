@@ -1,6 +1,6 @@
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import * as fs from './fs'
 import * as github from './github'
-import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest'
 
 import main from './main'
 
@@ -11,7 +11,7 @@ describe('Main', () => {
 
   describe('#default', () => {
     const fakeInput = {
-      repositoryRootPath: '/fake-root'
+      repositoryRootPath: '/fake-root',
     }
 
     beforeEach(() => {
@@ -25,14 +25,14 @@ describe('Main', () => {
       vi.spyOn(fs, 'readJsonFile')
         .mockResolvedValueOnce({
           workspaces: {
-            packages: ['packages/package-a', 'packages/package-b']
-          }
+            packages: ['packages/package-a', 'packages/package-b'],
+          },
         })
         .mockResolvedValueOnce({
-          name: 'package-a'
+          name: 'package-a',
         })
         .mockResolvedValueOnce({
-          name: 'package-b'
+          name: 'package-b',
         })
     })
 
@@ -57,7 +57,7 @@ describe('Main', () => {
       await expect(main()).resolves.toBeUndefined()
 
       expect(github.setGithubActionOutputFromResults).toHaveBeenCalledWith({
-        packageNames: ['package-a', 'package-b']
+        packageNames: ['package-a', 'package-b'],
       })
     })
   })

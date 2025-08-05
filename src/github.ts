@@ -1,15 +1,15 @@
-import {getInput, setOutput, debug, warning} from '@actions/core'
+import { debug, getInput, setOutput, warning } from '@actions/core'
 
 export function getOptionsFromGithubActionInput(): {
   repositoryRootPath: string
 } {
   return {
-    repositoryRootPath: getInput('repository_path')
+    repositoryRootPath: getInput('repository_path'),
   }
 }
 
 export function setGithubActionOutputFromResults({
-  packageNames
+  packageNames,
 }: {
   packageNames: string[]
 }): void {

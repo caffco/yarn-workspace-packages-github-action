@@ -1,8 +1,8 @@
 import * as core from '@actions/core'
-import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import {
   getOptionsFromGithubActionInput,
-  setGithubActionOutputFromResults
+  setGithubActionOutputFromResults,
 } from './github'
 
 vi.mock('@actions/core')
@@ -15,12 +15,12 @@ describe('Github', () => {
   describe('#getOptionsFromGithubActionInput', () => {
     beforeEach(() => {
       vi.spyOn(core, 'getInput').mockImplementation(
-        key =>
-          ((
-            {
-              repository_path: 'fake-repo-path'
-            } as Record<string, string>
-          )[key])
+        (key) =>
+          (
+            ({
+              repository_path: 'fake-repo-path',
+            }) as Record<string, string>
+          )[key]
       )
     })
 
@@ -42,7 +42,7 @@ describe('Github', () => {
 
     it('should log package names', async () => {
       setGithubActionOutputFromResults({
-        packageNames: ['package-a', 'package-b']
+        packageNames: ['package-a', 'package-b'],
       })
 
       expect(core.debug).toHaveBeenCalledWith(
@@ -52,7 +52,7 @@ describe('Github', () => {
 
     it('should log a warning if there are no packages', async () => {
       setGithubActionOutputFromResults({
-        packageNames: []
+        packageNames: [],
       })
 
       expect(core.warning).toHaveBeenCalledWith(
