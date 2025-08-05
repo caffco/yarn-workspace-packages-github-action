@@ -3,19 +3,13 @@ import {defineConfig} from 'vitest/config'
 export default defineConfig({
   test: {
     environment: 'node',
-    include: ['**/*.test.ts'],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html'],
       exclude: [
-        'node_modules/',
-        'dist/',
-        'lib/',
-        '**/*.test.ts',
-        '**/*.config.*'
+        'lib/', // TypeScript build output
+        'dist/' // Build artifacts
       ]
-    },
-    clearMocks: true,
-    restoreMocks: true
+    }
   }
 })
