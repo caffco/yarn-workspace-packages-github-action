@@ -1,19 +1,22 @@
-import * as fs from 'fs'
+import fs from 'fs'
+import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest'
 import {readJsonFile} from './fs'
 
-jest.mock('fs')
+vi.mock('fs', () => ({
+  default: {
+    readFile: vi.fn()
+  }
+}))
 
 describe('fs', () => {
   beforeEach(() => {
-    jest
-      .spyOn(fs, 'readFile')
-      .mockImplementation((filePath, callback) =>
-        callback(null, Buffer.from(JSON.stringify({'my-key': 'my-value'})))
-      )
+    vi.mocked(fs.readFile).mockImplementation((filePath, callback) =>
+      callback(null, Buffer.from(JSON.stringify({'my-key': 'my-value'})))
+    )
   })
 
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   describe('#readJsonFile', () => {
@@ -30,11 +33,9 @@ describe('fs', () => {
     })
 
     it('should reject on error', async () => {
-      jest
-        .spyOn(fs, 'readFile')
-        .mockImplementation((filePath, callback) =>
-          callback(new Error('Forced error'), Buffer.from(''))
-        )
+      vi.mocked(fs.readFile).mockImplementation((filePath, callback) =>
+        callback(new Error('Forced error'), Buffer.from(''))
+      )
 
       await expect(readJsonFile('my-file')).rejects.toThrowError('Forced error')
     })

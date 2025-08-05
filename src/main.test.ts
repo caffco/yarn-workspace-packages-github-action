@@ -1,11 +1,12 @@
 import * as fs from './fs'
 import * as github from './github'
+import {describe, it, expect, beforeEach, afterEach, vi} from 'vitest'
 
 import main from './main'
 
 describe('Main', () => {
   afterEach(() => {
-    jest.restoreAllMocks()
+    vi.restoreAllMocks()
   })
 
   describe('#default', () => {
@@ -14,15 +15,14 @@ describe('Main', () => {
     }
 
     beforeEach(() => {
-      jest
-        .spyOn(github, 'getOptionsFromGithubActionInput')
-        .mockReturnValue(fakeInput)
-      jest
-        .spyOn(github, 'setGithubActionOutputFromResults')
-        .mockImplementation(() => {})
+      vi.spyOn(github, 'getOptionsFromGithubActionInput').mockReturnValue(
+        fakeInput
+      )
+      vi.spyOn(github, 'setGithubActionOutputFromResults').mockImplementation(
+        () => {}
+      )
 
-      jest
-        .spyOn(fs, 'readJsonFile')
+      vi.spyOn(fs, 'readJsonFile')
         .mockResolvedValueOnce({
           workspaces: {
             packages: ['packages/package-a', 'packages/package-b']
